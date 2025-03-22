@@ -7,3 +7,24 @@ handling and observability. Create a local Git repository for this project.
 We do not expect perfection, but would like to see confidence and good practices.
 Please share the code with us (ideally using GitHub).
 
+## Poetry dependencies
+
+Add new
+
+```
+poertry add <dependency>
+```
+
+## Alembic migrations
+
+New migration
+
+```
+alembic revision --autogenerate -m "create_pet_model"
+```
+
+Apply migration using alembic upgrade
+
+```
+alembic upgrade head
+```
