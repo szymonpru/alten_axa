@@ -1,6 +1,7 @@
 import logging
 
 from fastapi import FastAPI
+from fastapi_pagination import add_pagination
 from starlette.middleware.cors import CORSMiddleware
 
 from app.api import user, pokemons, auth
@@ -22,6 +23,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Pagination
+add_pagination(app)
 app.include_router(auth.router)
 app.include_router(user.router)
 app.include_router(pokemons.router)

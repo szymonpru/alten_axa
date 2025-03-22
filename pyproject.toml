@@ -16,6 +16,7 @@ pyjwt = "^2.10.1"
 asyncpg = "^0.30.0"
 pydantic = {extras = ["email"], version = "^2.10.6"}
 python-multipart = "^0.0.20"
+fastapi-pagination = "^0.12.34"
 
 
 [build-system]

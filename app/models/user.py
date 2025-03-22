@@ -1,9 +1,13 @@
 import uuid
+from typing import TYPE_CHECKING
 
 from sqlalchemy import String, Uuid
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models.base import Base
+
+if TYPE_CHECKING:
+    from pokemon import UserPokemon
 
 
 class User(Base):
@@ -16,3 +20,7 @@ class User(Base):
         String(256), nullable=False, unique=True, index=True
     )
     hashed_password: Mapped[str] = mapped_column(String(128), nullable=False)
+
+    user_pokemons: Mapped[list["UserPokemon"]] = relationship(
+        "UserPokemon", back_populates="user", lazy="dynamic"
+    )
