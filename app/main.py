@@ -3,7 +3,7 @@ import logging
 from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
-from app.api import users, pokemons, auth
+from app.api import user, pokemons, auth
 from app.core.logging_config import setup_logging
 
 setup_logging()
@@ -23,5 +23,5 @@ app.add_middleware(
 )
 
 app.include_router(auth.router)
-app.include_router(users.router)
+app.include_router(user.router)
 app.include_router(pokemons.router)

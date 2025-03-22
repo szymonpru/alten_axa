@@ -9,3 +9,7 @@ class UserCreateRequest(BaseModel):
 class UserResponse(BaseModel):
     user_id: str
     email: EmailStr
+
+
+class UserUpdateRequest(BaseModel):
+    password: str | None
