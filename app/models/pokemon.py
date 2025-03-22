@@ -1,6 +1,6 @@
 import uuid
 
-from sqlalchemy import String, Uuid, Enum, ForeignKey
+from sqlalchemy import String, Uuid, Enum, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.models import User
@@ -30,9 +30,12 @@ class Pokemon(Base):
 
 class UserPokemon(Base):
     __tablename__ = "users_pokemons"
+    __table_args__ = (
+        UniqueConstraint('user_id', 'pokemon_id', name='uix_user_pokemon_unique'),
+    )
 
     id: Mapped[str] = mapped_column(
-        Uuid(as_uuid=False), primary_key=True, default=lambda _: str(uuid.uuid4())
+        Uuid(as_uuid=False), primary_key=True,default=lambda _: str(uuid.uuid4())
     )
     user_id: Mapped[str] = mapped_column(
         Uuid(as_uuid=False), ForeignKey("users.user_id"), nullable=False
