@@ -14,12 +14,40 @@ pydantic-settings = "^2.8.1"
 bcrypt = "^4.3.0"
 pyjwt = "^2.10.1"
 asyncpg = "^0.30.0"
-pydantic = {extras = ["email"], version = "^2.10.6"}
+pydantic = { extras = ["email"], version = "^2.10.6" }
 python-multipart = "^0.0.20"
 fastapi-pagination = "^0.12.34"
-pre-commit = "^4.2.0"
 
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^4.2.0"
+pytest = "^8.3.5"
+ruff = "^0.11.2"
+pytest-asyncio = "^0.25.3"
+mypy = "^1.15.0"
+httpx = "^0.28.1"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+asyncio_default_fixture_loop_scope = "session"
+asyncio_mode = "auto"
+testpaths = ["app/tests"]
+
+[tool.coverage.run]
+concurrency = ["greenlet"]
+omit = ["app/tests/*"]
+source = ["app"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+
+[tool.ruff]
+target-version = "py313"
+
+[tool.ruff.lint]
+# pycodestyle, pyflakes, isort, pylint, pyupgrade
+ignore = ["E501"]
+select = ["E", "F", "I", "PL", "UP", "W"]

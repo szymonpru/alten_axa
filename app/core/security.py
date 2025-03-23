@@ -4,18 +4,18 @@ import bcrypt
 import jwt
 from fastapi import HTTPException, status
 
-from app.core.config import settings
+from app.core.config import get_settings
 from app.schemas.auth import JWTToken, JWTTokenPayload
 
-
 ### PASSWORD ###
+
 
 def verify_password(hashed_password: str, password: str) -> bool:
     """
     Verifies a password against the stored hash.
     Returns True if the password is correct, otherwise False.
     """
-    return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
+    return bcrypt.checkpw(password.encode("utf-8"), hashed_password.encode("utf-8"))
 
 
 def get_hashed_password(password: str) -> str:
@@ -24,14 +24,15 @@ def get_hashed_password(password: str) -> str:
     Returns the hashed password.
     """
     salt = bcrypt.gensalt()
-    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
-    return hashed.decode('utf-8')
+    hashed = bcrypt.hashpw(password.encode("utf-8"), salt)
+    return hashed.decode("utf-8")
 
 
 ### JWT ###
 
 
 def create_jwt_token(user_id: str) -> JWTToken:
+    settings = get_settings()
     iat = int(time.time())
     exp = iat + settings.JWT_EXPIRES_SECONDS
 
@@ -52,6 +53,7 @@ def create_jwt_token(user_id: str) -> JWTToken:
 
 
 def verify_jwt_token(token: str) -> JWTTokenPayload:
+    settings = get_settings()
     try:
         payload = jwt.decode(
             token,
