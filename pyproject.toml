@@ -17,6 +17,7 @@ asyncpg = "^0.30.0"
 pydantic = {extras = ["email"], version = "^2.10.6"}
 python-multipart = "^0.0.20"
 fastapi-pagination = "^0.12.34"
+pre-commit = "^4.2.0"
 
 
 [build-system]
